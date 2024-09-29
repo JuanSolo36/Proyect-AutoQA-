@@ -1,0 +1,74 @@
+<form [formGroup]="codeForm">
+  <div class="block-content card">
+    <div class="ng-star-inserted">
+      <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+        <div class="flex flex-wrap align-items-center">
+          <div class="w-full lg:w-6 lg:pr-6">
+            <div class="text-900 font-bold text-2xl mb-3">
+              Hola de nuevo!
+              <span class="text-blue-500">{{ userAdmin?.name }}</span>
+            </div>
+            <div
+              class="text-600 text-xl line-height-3 lg:mb-0 mb-4"
+              style="max-width: 450px"
+            >
+              Nos gusta volverte a ver, para ingresar coloque el código de 6
+              digítos
+            </div>
+          </div>
+          <div class="w-full lg:w-6">
+            <div class="flex align-items-center justify-content-center">
+              <input
+                type="text"
+                pInputText
+                pinputtext=""
+                placeholder="Ingresa el código"
+                formControlName="code"
+                class="p-inputtext p-component p-element p-3 border-noround border-round-left"
+                [ngClass]="{
+                  'is-invalid':
+                    codeForm.get('code')?.invalid &&
+                    codeForm.get('code')?.touched
+                }"
+              />
+              <button
+                pbutton=""
+                (click)="onAuthOTP()"
+                pripple=""
+                icon="pi pi-chevron-right"
+                class="p-element p-ripple border-noround border-round-right p-3 w-auto p-button p-component p-button-icon-only"
+              >
+                <span
+                  class="p-button-icon pi pi-chevron-right"
+                  aria-hidden="true"
+                ></span
+                ><span class="p-ink"></span>
+              </button>
+            </div>
+            <div
+              *ngIf="
+                codeForm.get('code')?.invalid && codeForm.get('code')?.touched
+              "
+              class="text-red-300 mt-2 text-xs text-center"
+            >
+              El código es obligatorio y debe tener 6 dígitos.
+            </div>
+            <div
+              class="mt-3 text-center flex align-items-center justify-content-center"
+            >
+              <span class="text-600">¿Olvidó el código?</span>
+              <p-button
+                label="Recuperar código"
+                (onClick)="onRecoverOPT()"
+                [text]="true"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<app-loading [display]="isLoading"></app-loading>
+<p-toast></p-toast>

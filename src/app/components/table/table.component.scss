@@ -1,0 +1,64 @@
+.container-table{
+    // width: 500px !important;
+    max-height: 75vh !important;
+    margin: 2% 2% 2% 2%;
+    padding: 2%;
+    box-shadow: 0px 0px 77px -32px rgba(143,136,141,1);
+    overflow: scroll;
+}
+button span{
+    margin-right: 20px;
+}
+
+.p-button-add-custom {
+    background-color: #FF9457 !important;
+    border-color: #FF9457 !important;
+    color: white !important; 
+    border-radius: 5px;
+    border: none;
+    color: white;
+    padding: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+    &:hover {
+      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.3);
+    }
+}
+
+  .btn-edit {
+    background-color: #4285F4;  /* Color azul para el botón de editar */
+    border-radius: 5px;
+    border: none;
+    color: white; /* Color del icono o texto */
+  }
+  
+  .btn-view {
+    background-color: #34A853;  /* Color verde para el botón de aprobar */
+    border-radius: 5px;
+    border: none;
+    color: white; /* Color del icono o texto */
+  }
+  
+  .btn-delete {
+    background-color: #FF9457;  /* Color naranja para el botón de eliminar */
+    border-radius: 5px;
+    border: none;
+    color: white; /* Color del icono o texto */
+  }
+
+  .btn-activate {
+    background-color: #1CD08F;  /* Color naranja para el botón de eliminar */
+    border-radius: 5px;
+    border: none;
+    color: white; /* Color del icono o texto */
+  }
+  
+  /* Añadir un estilo para los botones grises en el estado desactivado */
+  button.disabled-button {
+    background-color: #d3d3d3; /* Color gris */
+    border-color: #d3d3d3;
+    color: #ffffff; /* Texto gris */
+  }

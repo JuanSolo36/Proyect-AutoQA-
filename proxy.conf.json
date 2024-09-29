@@ -1,0 +1,23 @@
+{
+    "/authenticate":{
+        "target":"http://localhost:8050",
+        "secure":false,
+        "loglevel":"debug"
+    },
+    "/user":{
+        "target":"http://localhost:8050",
+        "secure":false,
+        "loglevel":"debug"
+    },
+ 
+    "/code":{
+        "target":"http://localhost:8050",
+        "secure":false,
+        "loglevel":"debug"
+    },
+    "/change":{
+        "target":"http://localhost:8050",
+        "secure":false,
+        "loglevel":"debug"
+    }
+}

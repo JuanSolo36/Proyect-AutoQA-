@@ -1,0 +1,13 @@
+<p-dialog
+  class="flex flex align-items-center justify-content-center"
+  [closable]="false"
+  [(visible)]="display"
+  [modal]="true"
+  [baseZIndex]="10000"
+  [draggable]="false"
+>
+  <div class="flex flex align-items-center justify-content-center flex-column">
+    <h3>Cargando...</h3>
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</p-dialog>

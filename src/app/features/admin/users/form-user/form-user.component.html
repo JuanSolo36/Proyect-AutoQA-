@@ -1,0 +1,98 @@
+<ng-container>
+  <div class="card">
+    <form
+    [formGroup]="formUser"
+      [autocomplete]="false"
+      (ngSubmit)="saveUser()"
+      ngClass=" mb-8"
+    >
+      <div class="formgrid grid">
+        <div class="field col-12 md:col-6">
+          <label>Nombre</label>
+          <br>
+          <input
+            class="w-full"
+            formControlName="name"
+            type="text"
+            pInputText
+            [ngClass]="isValidField('name') ? 'ng-dirty ng-invalid' : ''"
+          />
+          <small *ngIf="isValidField('name')" class="p-error">{{
+            errorMessageForm("name")
+          }}</small>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label>Email</label>
+          <br>
+          <input
+            class="w-full"
+            type="email"
+            formControlName="email"
+            [ngClass]="isValidField('email') ? 'ng-dirty ng-invalid' : ''"
+            pInputText
+          />
+          <small *ngIf="isValidField('email')" class="p-error">{{
+            errorMessageForm("email")
+          }}</small>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label>Contraseña</label>
+          <br>
+          <input
+            class="w-full"
+            formControlName="password"
+            type="text"
+            pInputText
+            [ngClass]="isValidField('password') ? 'ng-dirty ng-invalid' : ''"
+          />
+          <small *ngIf="isValidField('password')" class="p-error">{{
+            errorMessageForm("password")
+          }}</small>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label>Tipo de usuario</label>
+          <br>
+          <p-dropdown 
+              class="w-full block"
+              formControlName="roleId" 
+              [options]="roleIds" 
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Selecciona un usuario"
+              [ngClass]="isValidField('roleId') ? 'ng-dirty ng-invalid' : ''"
+            />
+            <small *ngIf="isValidField('roleId')" class="p-error">{{
+              errorMessageForm("roleId")
+            }}</small>
+        </div>
+
+
+      </div>
+    </form>
+  </div>
+  <div class="p-dialog-footer">
+    
+    <button
+      pButton
+      label="Guardar"
+      [disabled]="formUser.invalid"
+      icon="pi pi-save"
+      (click)="saveUser()"
+      iconPos="left"
+      class="m-2"
+    ></button>
+    <button
+      pButton
+      icon="pi pi-ban"
+      iconPos="left"
+      type="button"
+      label="Cancelar"
+      (click)="ref.close()"
+      class="p-button-danger m-2"
+    ></button>
+  </div>
+  <app-loading [display]="isLoading"></app-loading>
+</ng-container>

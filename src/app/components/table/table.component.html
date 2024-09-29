@@ -1,0 +1,126 @@
+<div class="">
+  <p-toolbar styleClass="mb-4">
+    <h2>{{ label }}</h2>
+    <ng-template pTemplate="left">
+      <button
+        *ngIf="this.buttonAdd"
+        pButton
+        pRipple
+        label="Agregar"
+        icon="pi pi-plus"
+        (click)="addEvent()"
+        class="p-button-add-custom mr-2"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+  <p-table
+    [columns]="columns"
+    [value]="values.length > 0 ? values : []"
+    responsiveLayout="scroll"
+    currentPageReportTemplate="{first} - {last} de {totalRecords} valores"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [paginator]="true"
+    [totalRecords]="values.length"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th id="col" *ngFor="let col of columns">
+          {{ col.header }}
+          <p-columnFilter
+            type="text"
+            [field]="col.field"
+            display="menu"
+          ></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          <p>
+            {{ rowData[col.field] ?? '' }}
+          </p>
+          <button
+            *ngIf="col.field == 'posibleService'"
+            pButton
+            (click)="assignServiceFromPassenger(rowData)"
+            label="Aprobar"
+          ></button>
+          <button
+            *ngIf="col.field == 'stationButton'"
+            pButton
+            (click)="showStations(rowData)"
+            label="Paradas"
+          ></button>
+          <button
+            *ngIf="col.field == 'stationIndependientButton'"
+            pButton
+            (click)="showStationsIndependient(rowData)"
+            label="Paradas"
+          ></button>
+          <button
+            *ngIf="col.field == 'rechargenButton'"
+            pButton
+            (click)="showRechargeDialog(rowData)"
+            label="Abono"
+          ></button>
+          <button
+            *ngIf="col.field == 'cancelButton' && rowData.realObject.state.id == 52"
+            pButton
+            (click)="showDialogCancelService(rowData)"
+            label="Cancelar"
+          ></button>
+          <button
+            *ngIf="col.field == 'buttonAssign'"
+            pButton
+            (click)="showDialogAssignFromDriver(rowData)"
+            label="Asignar"></button>
+          <button
+            *ngIf="col.field == 'finishServiceButton'"
+            pButton
+            (click)="showDialogFinishService(rowData)"
+            label="Finalizar"
+          ></button>
+          <!-- Botones de  -->
+          <button
+            (click)="editRegister(rowData)"
+            pButton
+            pRipple
+            *ngIf="col.field['edit'] && col.field['edit'] == true"
+            icon="pi pi-pencil"
+            class="btn-edit btn-icon mr-2"
+          ></button>
+          <button
+            (click)="activateRegister(rowData)"
+            pButton
+            pRipple
+            *ngIf="col.field['activateR'] && col.field['activateR'] == true"
+            icon="pi pi-check"
+            class="btn-activate btn-icon mr-2"
+            [ngClass]="{'disabled-button': rowData.realObject.status.id && rowData.realObject.status.id === 10}"
+            
+          ></button>
+          
+          <button
+            (click)="viewRegister(rowData)"
+            *ngIf="col.field['view'] && col.field['view'] == true"
+            pButton
+            pRipple
+            icon="pi pi-eye"
+            class="btn-view btn-icon mr-2"
+          ></button>
+          <button
+            (click)="deleteRegister(rowData)"
+            *ngIf="col.field['delete'] && col.field['delete'] == true"
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="btn-delete btn-icon"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

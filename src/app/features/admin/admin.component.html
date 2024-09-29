@@ -1,0 +1,41 @@
+<div class="flex">
+    <!-- menu barra lateral -->
+    <div [ngClass]="{'flex': sidebar}" class="hidden md:flex md:static absolute z-4 bg-custom-blue" style="height: 100vh;">
+        <div class="flex flex-column h-full">
+            <div class="overflow-y-auto">
+                <ul class="p-0 m-0 overflow-hidden">
+                    <!-- opciones -->
+                    <li *ngFor="let option of options; let i = index;">
+                        <a pRipple 
+                           class="flex align-items-center cursor-pointer p-3 border-round text-700 transition-duration-150 transition-colors p-ripple bg-custom-blue bg-custom-blue-hover"
+                           [ngClass]="{ 'selected': select === i, }"
+                           (click)="selectOption(i)">
+                            <i [class]="option.icon ? option.icon : ''" class="pi mr-2 " style="color: white; font-size: 2.5rem;"></i>
+                            <span class="font-medium" style="font-size: 1.2rem;" [ngStyle]="{color: 'white'}">{{option.option}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>    
+    <div class="w-full flex flex-column" style="height: 100vh;">
+        <!-- opciones de usuario -->
+        <div [ngClass]="{'justify-content-between': !sidebar}" class="p-3 flex justify-content-between flex-row-reverse w-full">
+            <i class="pi pi-user " style="font-size: 2.5rem" (click)="popupMenu.toggle($event)">
+            <p-menu #popupMenu [model]="items" [popup]="true"></p-menu>
+            </i>
+            <i [ngClass]="{'pi-arrow-circle-right': !sidebar, 'pi-arrow-circle-left': sidebar}" (click)="sidebarAction()" class="flex md:hidden pi flex mr-2 " style="color: rgba(8,97,223,255); font-size: 2.5rem; "></i>
+        </div>
+        
+        <!-- tabla -->
+        <div class="flex-1 overflow-y-auto p-3 h-full">
+            <div><router-outlet /></div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button> -->
+
+<!-- <app-change-password></app-change-password> -->
