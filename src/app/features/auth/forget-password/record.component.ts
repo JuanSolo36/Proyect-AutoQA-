@@ -13,10 +13,10 @@ import { ChangePassword } from '../../../core/models/change-password/changePassw
 import { RecoveryPasswordService }  from '../../../core/services/recoveryPassword/recovery-password.service';
 @Component({
   selector: 'app-forget-password',
-  templateUrl: './forget-password.component.html',
-  styleUrl: './forget-password.component.scss'
+  templateUrl: './record.component.html',
+  styleUrl: './record.component.scss'
 })
-export class ForgetPasswordComponent implements OnInit {
+export class RecordComponent implements OnInit {
   email: string = ''
   password: string = ''
   idUser: string = ''
@@ -32,7 +32,7 @@ export class ForgetPasswordComponent implements OnInit {
       private changesPasswordService: ChangePasswordService,
       private securityService: SecurityService,
       private router: Router,
-      
+
       ) {
         this.formPaswords = this.form.group(
           {
@@ -52,7 +52,7 @@ export class ForgetPasswordComponent implements OnInit {
               label: 'Paso 1',
               command: (event: any) => {
                 this.activeIndex = 0
-                this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label})},  
+                this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label})},
           },
           {
               label: 'Paso 2',
@@ -74,10 +74,10 @@ export class ForgetPasswordComponent implements OnInit {
       this.activeIndex =  index
     }
   }
-  
+
   recoveryPasswordUser(){
     this.formPaswords.get('newPassword')?.value?? ''
- 
+
     if(!this.email || this.email.trim()===""){
       Swal.fire({
         title: "¡Error en el formulario!",
@@ -95,7 +95,7 @@ export class ForgetPasswordComponent implements OnInit {
           text: "¡Código enviado con éxito!",
           icon: "success",
           confirmButtonText: 'Aceptar'
-          
+
         });
         this.activeIndex = 1
       },
@@ -111,7 +111,7 @@ export class ForgetPasswordComponent implements OnInit {
 
 
   }
-  
+
   onLogin() {
     if(!this.password || this.password.trim()===""){
       Swal.fire({
@@ -124,7 +124,7 @@ export class ForgetPasswordComponent implements OnInit {
       return
     }
     this.authService.loginPasword({ email: this.email, password: this.password })
-    
+
       .subscribe({
         next: (value) => {
           Swal.fire({
@@ -132,7 +132,7 @@ export class ForgetPasswordComponent implements OnInit {
             text: "¡Código valido!",
             icon: "success",
             confirmButtonText: 'Aceptar'
-            
+
           });
           this.securityService.SaveUserAndToken(value);
           this.activeIndex = 2
@@ -178,7 +178,7 @@ export class ForgetPasswordComponent implements OnInit {
       id: Number(this.idUser),
       newPassword: this.formPaswords.get('newPassword')?.value?? '',
     };
-    
+
 
     this.authService
       .login({ email: email?? '', password: this.password})
@@ -192,7 +192,7 @@ export class ForgetPasswordComponent implements OnInit {
               text: "¡Cambio de contraseña exitoso!",
               icon: "success",
               confirmButtonText: 'Aceptar'
-              
+
             });
             this.router.navigate(['/auth']);
           },
@@ -203,7 +203,7 @@ export class ForgetPasswordComponent implements OnInit {
               icon: 'error',
               confirmButtonText: 'Aceptar'
             });
-          }   
+          }
         })
       },
       error: (errorMessage) => {

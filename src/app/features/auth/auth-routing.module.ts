@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { RecordComponent } from './forget-password/record.component';
 import { AuthOtpComponent } from './auth-otp/auth-otp.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'recover-password', component: ForgetPasswordComponent },
+  { path: 'recover-password', component: RecordComponent },
   { path: 'otp', component: AuthOtpComponent },
 ];
 

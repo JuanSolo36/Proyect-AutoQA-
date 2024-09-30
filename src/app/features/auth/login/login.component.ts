@@ -64,7 +64,7 @@ export class LoginComponent {
               localStorage.setItem('email', value.user.email);
               localStorage.setItem('idUser', value.user.id.toString());
               this.securityService.SaveUserAndToken(value);
-            
+
           }
           this.showDialogOTP();
           // console.log(value);
@@ -98,7 +98,7 @@ export class LoginComponent {
     });
   }
 
-  navigateToRecoverPassword() {
+  navigateToRegister() {
     this.router.navigate(['/auth/recover-password']);
   }
 
