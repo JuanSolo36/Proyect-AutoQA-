@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from '../../core/services/authentication/authentication.service';
 import { PrimengModule } from '../../shared/primeng/primeng/primeng.module';
-import { RecordComponent } from './forget-password/record.component';
+import { RecordComponent } from './record/record.component';
 import { RecoveryPasswordService } from '../../core/services/recoveryPassword/recovery-password.service';
 import { ChangePasswordService } from '../../core/services/change-password/change-password.service';
 import { AuthOtpComponent } from './auth-otp/auth-otp.component';

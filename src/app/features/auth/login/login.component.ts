@@ -99,7 +99,7 @@ export class LoginComponent {
   }
 
   navigateToRegister() {
-    this.router.navigate(['/auth/recover-password']);
+    this.router.navigate(['/auth/record']);
   }
 
   isValidField(formControlName: any) {

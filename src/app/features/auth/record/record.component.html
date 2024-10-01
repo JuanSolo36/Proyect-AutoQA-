@@ -1,13 +1,13 @@
 <p-toast></p-toast>
-<p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>    
+<p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
 
     <div
-        
+
         *ngIf="activeIndex == 0"
         class="px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center"
         >
         <div class="container-forgot"></div>
-  
+
         <div
           class="p-6 shadow-2 text-center lg:w-30rem form-forgot"
           style="
@@ -18,9 +18,9 @@
         >
         <div class="text-4xl font-medium mb-6">Recuperar contraseña</div>
         <input
-          
+
           [(ngModel)]="email"
-          
+
           placeholder="Correo electrónico"
 
           class="appearance-none border-none p-3 w-full outline-none text-xl block mb-4 bg-white-alpha-10 text-white-alpha-60"
@@ -30,7 +30,7 @@
         <button
           (click)="recoveryPasswordUser()"
           class="appearance-none border-none p-3 w-full outline-none text-xl mb-4 font-medium w-12rem bg-white-alpha-30 hover:bg-white-alpha-40 text-white-alpha-80 transition-colors transition-duration-150"
-          style="border-radius: 30px"        
+          style="border-radius: 30px"
         >Enviar
         </button>
             <a routerLink="/auth/login" href=""class="cursor-pointer font-medium block text-center">Regresar</a>
@@ -39,7 +39,7 @@
     </div>
 
     <div
-    
+
     *ngIf="activeIndex == 1"
       class="px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center"
     >
@@ -63,7 +63,7 @@
           class="appearance-none border-none p-3 w-full outline-none text-xl block mb-4 bg-white-alpha-10 text-white-alpha-60"
           style="border-radius: 30px"
         />
-    
+
         <button
           class="appearance-none border-none p-3 w-full outline-none text-xl mb-4 font-medium w-12rem bg-white-alpha-30 hover:bg-white-alpha-40 text-white-alpha-80 transition-colors transition-duration-150"
           style="border-radius: 30px"
@@ -71,7 +71,7 @@
         >
           Enviar
         </button>
-    
+
         <a
           class="cursor-pointer font-medium block text-center"
           routerLink="/auth/login"
@@ -85,7 +85,7 @@
       class="px-4 py-8 md:px-6 lg:px-8 flex alig´n-items-center justify-content-center"
     >
       <div class="container-forgot"></div>
-      
+
       <div
         class="p-6 shadow-2 text-center lg:w-30rem form-forgot"
         style="
@@ -97,40 +97,40 @@
         <div class="text-4xl font-medium mb-6">Por favor cambie la contraseña</div>
         <form [formGroup]="formPaswords">
           <div class="input-container">
-            
+
             <p-password
               id="newPassword"
               formControlName="newPassword"
               [toggleMask]="true"
             ></p-password>
             <div
-            style="height: 100; width: 100;"      
+            style="height: 100; width: 100;"
             class="mb-4"
             >
-  
+
             </div>
           </div>
           <div class="input-container">
-            
+
             <p-password
               id="confirmPassword"
               formControlName="confirmPassword"
               [toggleMask]="true"
             ></p-password>
-            
-            
+
+
           </div>
         </form>
         <button
-          
+
           class="appearance-none border-none p-3 w-full outline-none text-xl mb-4 font-medium w-12rem bg-white-alpha-30 hover:bg-white-alpha-40 text-white-alpha-80 transition-colors transition-duration-150"
-          
+
           style="border-radius: 30px; margin: 15px 0"
           (click)="changesPassword()"
         >
           Enviar
         </button>
-    
+
         <a
           class="cursor-pointer font-medium block text-center"
           routerLink="/auth/login"
