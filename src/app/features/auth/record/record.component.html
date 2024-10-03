@@ -1,140 +1,55 @@
-<p-toast></p-toast>
-<p-steps [model]="items" [readonly]="true" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
-
-    <div
-
-        *ngIf="activeIndex == 0"
-        class="px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center"
-        >
-        <div class="container-forgot"></div>
-
-        <div
-          class="p-6 shadow-2 text-center lg:w-30rem form-forgot"
-          style="
-            border-radius: 12px;
-            background-color: rgba(32, 30, 30, 0.792);
-            color: rgba(255, 255, 255, 0.8);
-          "
-        >
-        <div class="text-4xl font-medium mb-6">Recuperar contraseña</div>
-        <input
-
-          [(ngModel)]="email"
-
-          placeholder="Correo electrónico"
-
-          class="appearance-none border-none p-3 w-full outline-none text-xl block mb-4 bg-white-alpha-10 text-white-alpha-60"
-          style="border-radius: 30px"
-        />
-
-        <button
-          (click)="recoveryPasswordUser()"
-          class="appearance-none border-none p-3 w-full outline-none text-xl mb-4 font-medium w-12rem bg-white-alpha-30 hover:bg-white-alpha-40 text-white-alpha-80 transition-colors transition-duration-150"
-          style="border-radius: 30px"
-        >Enviar
-        </button>
-            <a routerLink="/auth/login" href=""class="cursor-pointer font-medium block text-center">Regresar</a>
-
+<div class="block-content">
+  <div class="ng-star-inserted">
+    <div class="flex" style="height: 100vh;">
+      <div class="hidden md:flex h-full align-items-top justify-content-center"
+           style="background-image: url('assets/drawel.png'); background-size: 480px 100%; width: 700px;">
+        <div style="color: white; font-weight: bold; text-transform: uppercase; font-family: 'Arial', sans-serif; margin: 80px 0 0 0; text-align: center; position: relative;">
         </div>
-    </div>
-
-    <div
-
-    *ngIf="activeIndex == 1"
-      class="px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center"
-    >
-      <div class="container-forgot"></div>
-      <!-- Por favor cambiar esa imagen -->
-      <div
-        class="p-6 shadow-2 text-center lg:w-30rem form-forgot"
-        style="
-          border-radius: 12px;
-          background-color: rgba(32, 30, 30, 0.792);
-          color: rgba(255, 255, 255, 0.8);
-        "
-      >
-        <div class="text-4xl font-medium mb-6">
-          Ingrese el código de verificación
-        </div>
-        <input
-          type="text"
-          placeholder="Código"
-          [(ngModel)]="password"
-          class="appearance-none border-none p-3 w-full outline-none text-xl block mb-4 bg-white-alpha-10 text-white-alpha-60"
-          style="border-radius: 30px"
-        />
-
-        <button
-          class="appearance-none border-none p-3 w-full outline-none text-xl mb-4 font-medium w-12rem bg-white-alpha-30 hover:bg-white-alpha-40 text-white-alpha-80 transition-colors transition-duration-150"
-          style="border-radius: 30px"
-          (click)="onLogin()"
-        >
-          Enviar
-        </button>
-
-        <a
-          class="cursor-pointer font-medium block text-center"
-          routerLink="/auth/login"
-          >Regresar</a
-        >
       </div>
-    </div>
-
-    <div
-    *ngIf="activeIndex == 2"
-      class="px-4 py-8 md:px-6 lg:px-8 flex alig´n-items-center justify-content-center"
-    >
-      <div class="container-forgot"></div>
-
-      <div
-        class="p-6 shadow-2 text-center lg:w-30rem form-forgot"
-        style="
-          border-radius: 12px;
-          background-color: rgba(32, 30, 30, 0.792);
-          color: rgba(255, 255, 255, 0.8);
-        "
-      >
-        <div class="text-4xl font-medium mb-6">Por favor cambie la contraseña</div>
-        <form [formGroup]="formPaswords">
-          <div class="input-container">
-
-            <p-password
-              id="newPassword"
-              formControlName="newPassword"
-              [toggleMask]="true"
-            ></p-password>
-            <div
-            style="height: 100; width: 100;"
-            class="mb-4"
-            >
-
+      <div class="surface-section p-7 md:p-1 flex w-full align-content-center justify-content-center flex-wrap">
+        <div class="mb-5 w-20rem">
+          <div class="flex-column align-content-center justify-content-center text-center" style=" margin-bottom: 30px;">
+            <img src="assets/fondo.png" alt="Logo de la empresa" style="width: 250px; height: auto;">
+            <div class="text-900 text-2xl font-medium mb-3" >
+              <b>Registro</b>
             </div>
           </div>
-          <div class="input-container">
-
-            <p-password
-              id="confirmPassword"
-              formControlName="confirmPassword"
-              [toggleMask]="true"
-            ></p-password>
-
-
+          <div>
+            <form [formGroup]="formLogin">
+              <div class="mb-3" >
+                <label for="email2" class="block text-900 font-medium mb-2">
+                  <b>Correo electrónico</b>
+                </label>
+                <input formControlName="email" type="text" placeholder="Ingrese correo electrónico" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('email')" class="p-error">{{ errorMessageForm('email') }}</small>
+              </div>
+              <div class="mb-3" >
+                <label for="email2" class="block text-900 font-medium mb-2">
+                  <b>Correo electrónico</b>
+                </label>
+                <input formControlName="email" type="text" placeholder="Ingrese correo electrónico" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('email')" class="p-error">{{ errorMessageForm('email') }}</small>
+              </div>
+              <div class="mb-3" >
+                <label for="password2" class="block text-900 font-medium mb-2">
+                  <b>Contraseña</b>
+                </label>
+                <input formControlName="password" type="password" placeholder="**********" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('password')" class="p-error">{{ errorMessageForm('password') }}</small>
+              </div>
+            </form>
+            <div class="flex justify-content-center">
+              <button (click)="onLogin()" [disabled]="formLogin.invalid" class="p-element p-ripple p-3 p-button p-component mb-4" [ngStyle]="{backgroundColor:'#E11C24'}" style="width: 200px; border-radius: 10px;">
+                <span class="p-button-label"><b>Inicio de sesión</b></span>
+                <span class="p-ink"></span>
+              </button>
+            </div>
+            <div class="flex justify-content-center">
+            <a (click)="navigateToRegister()" class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Registrarse</a>
+            </div>
           </div>
-        </form>
-        <button
-
-          class="appearance-none border-none p-3 w-full outline-none text-xl mb-4 font-medium w-12rem bg-white-alpha-30 hover:bg-white-alpha-40 text-white-alpha-80 transition-colors transition-duration-150"
-
-          style="border-radius: 30px; margin: 15px 0"
-          (click)="changesPassword()"
-        >
-          Enviar
-        </button>
-
-        <a
-          class="cursor-pointer font-medium block text-center"
-          routerLink="/auth/login"
-          >Regresar</a
-        >
+        </div>
       </div>
     </div>
+  </div>
+</div>

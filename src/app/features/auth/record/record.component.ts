@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem,MessageService  } from 'primeng/api';
-import { RecoveryPassword } from '../../../core/models/recoveryPassword/recoveryPassword.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import Swal from 'sweetalert2';
@@ -11,209 +10,114 @@ import { ChangePasswordService } from '../../../core/services/change-password/ch
 import { Router } from '@angular/router';
 import { ChangePassword } from '../../../core/models/change-password/changePassword.interface';
 import { RecoveryPasswordService }  from '../../../core/services/recoveryPassword/recovery-password.service';
+import {
+  errorMessage,
+  passwordValidator,
+} from '../../../core/helpers/validationsForm';
+import { Rol } from '../../../core/models/roles';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { AuthOtpComponent } from '../auth-otp/auth-otp.component';
 @Component({
   selector: 'app-forget-password',
   templateUrl: './record.component.html',
-  styleUrl: './record.component.scss'
+  styleUrl: './record.component.scss',
+  providers: [DialogService]
 })
 export class RecordComponent implements OnInit {
-  email: string = ''
-  password: string = ''
-  idUser: string = ''
-  items: MenuItem[] | undefined;
-  activeIndex: number = 0;
-  formPaswords!: FormGroup;
+  formLogin!: FormGroup;
+  ref?: DynamicDialogRef; //Referencia al dialog que se genera al momento de crear o editar un elemento
 
-    constructor(
-      public messageService: MessageService,
-      private form: FormBuilder,
-      private recoveryPasswordService: RecoveryPasswordService,
-      private authService: AuthenticationService,
-      private changesPasswordService: ChangePasswordService,
-      private securityService: SecurityService,
-      private router: Router,
-
-      ) {
-        this.formPaswords = this.form.group(
-          {
-            newPassword: ['', [Validators.required]],
-            confirmPassword: ['', [Validators.required]],
-          }
-        );
-      }
-
-    onActiveIndexChange(event: number) {
-        this.activeIndex = event;
-    }
-
-    ngOnInit() {
-      this.items = [
-          {
-              label: 'Paso 1',
-              command: (event: any) => {
-                this.activeIndex = 0
-                this.messageService.add({severity:'info', summary:'First Step', detail: event.item.label})},
-          },
-          {
-              label: 'Paso 2',
-              command: (event: any) => {
-                this.activeIndex = 1
-                this.messageService.add({severity:'info', summary:'Second Step', detail: event.item.label})}
-          },
-          {
-              label: 'Paso 3',
-              command: (event: any) => {
-                this.activeIndex = 2
-                this.messageService.add({severity:'info', summary:'Third Step', detail: event.item.label})
-              }
-          }
-      ];
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService,
+    private securityService: SecurityService,
+    private fb: FormBuilder,
+    public dialogService: DialogService
+  ) {
+    this.formLogin = this.fb.group({
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.minLength(8),
+          Validators.maxLength(50),
+        ],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(20),
+          passwordValidator,
+        ],
+      ],
+    });
   }
-  changeStep(index: number){
-    if(index >= 0 && index < this.items!!.length){
-      this.activeIndex =  index
-    }
-  }
-
-  recoveryPasswordUser(){
-    this.formPaswords.get('newPassword')?.value?? ''
-
-    if(!this.email || this.email.trim()===""){
-      Swal.fire({
-        title: "¡Error en el formulario!",
-        text: "El texto no puede ir vacío",
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      });
-      return;
-    }
-
-    this.recoveryPasswordService.recoveryPasswordUser(this.email).subscribe({
-        next: () => {
-        Swal.fire({
-          title: "¡Operación exitosa!",
-          text: "¡Código enviado con éxito!",
-          icon: "success",
-          confirmButtonText: 'Aceptar'
-
-        });
-        this.activeIndex = 1
-      },
-      error: (response) =>{
-        Swal.fire({
-          title: "¡Ocurrió un error!",
-          text: `${response.error?.message ?? 'Sucedió un error inesperado'}`,
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    })
-
-
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
   onLogin() {
-    if(!this.password || this.password.trim()===""){
-      Swal.fire({
-        title: "¡Error en el formulario!",
-        text: "El codigo no puede ir vacío",
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-
-      });
-      return
-    }
-    this.authService.loginPasword({ email: this.email, password: this.password })
-
+    this.authService
+      .login({
+        email: this.formLogin.get('email')?.value,
+        password: this.formLogin.get('password')?.value,
+      })
       .subscribe({
         next: (value) => {
-          Swal.fire({
-            title: "¡Operación exitosa!",
-            text: "¡Código valido!",
-            icon: "success",
-            confirmButtonText: 'Aceptar'
+          switch (value.user.roleId.id) {
+            case Rol.Administrator:
+              localStorage.setItem('email', value.user.email);
+              localStorage.setItem('idUser', value.user.id.toString());
+              this.securityService.SaveUserAndToken(value);
 
-          });
-          this.securityService.SaveUserAndToken(value);
-          this.activeIndex = 2
-          this.idUser = value.user.id
+          }
+          this.showDialogOTP();
+          // console.log(value);
+          // if (this.router.url == '/auth' && value.user.roleId.id == 12) {
+          //   this.router.navigate(['/administrator/users']);
+          //   console.log('admin');
+          // }
         },
-        error: (response) => {
+        error: (errorMessage) => {
           Swal.fire({
-            title: "¡Ocurrió un error!",
-            text: `${response.error?.message ?? 'Sucedió un error inesperado'}`,
+            title: '¡Error!',
+            text: `${
+              errorMessage.error.message ?? 'Sucedió un error inesperado'
+            }`,
             icon: 'error',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
           });
         },
       });
   }
-  changesPassword(){
-    const email = this.email
-    const newPassword = this.formPaswords.get('newPassword')?.value ?? '';
-    const confirmPassword = this.formPaswords.get('confirmPassword')?.value ?? '';
 
-  // Verificación para las contraseñas
-    if (!this.password || this.password.trim() === "" || newPassword.trim() === "" || confirmPassword.trim() === "") {
-      Swal.fire({
-        title: "¡Error en el formulario!",
-        text: "Las contraseñas no pueden estar vacías",
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      });
-      return; // Detiene la ejecución si alguna de las contraseñas está vacía
-    }
-
-    if(newPassword !== confirmPassword){
-      Swal.fire({
-        title: "¡Error en el formulario!",
-        text: "Las contraseñas no coinciden",
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      });
-      return
-    }
-
-    const changesPasswordRequest: ChangePassword = {
-      id: Number(this.idUser),
-      newPassword: this.formPaswords.get('newPassword')?.value?? '',
-    };
-
-
-    this.authService
-      .login({ email: email?? '', password: this.password})
-      .subscribe({
-        next: (value) => {
-          this.securityService.SaveUserAndToken(value);
-          this.changesPasswordService.changePassword(changesPasswordRequest).subscribe({
-          next: () => {
-            Swal.fire({
-              title: "¡Operación exitosa!",
-              text: "¡Cambio de contraseña exitoso!",
-              icon: "success",
-              confirmButtonText: 'Aceptar'
-
-            });
-            this.router.navigate(['/auth']);
-          },
-          error: (errorResponse:any) =>{
-            Swal.fire({
-              title: "¡Ocurrió un error!",
-              text: `${errorResponse.error?.message ?? 'Sucedió un error inesperado'}`,
-              icon: 'error',
-              confirmButtonText: 'Aceptar'
-            });
-          }
-        })
-      },
-      error: (errorMessage) => {
-        Swal.fire({
-          title: "¡Ocurrió un error!",
-          text: `Contraseña invalida`,
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      },
+  showDialogOTP() {
+    this.ref = this.dialogService.open(AuthOtpComponent, {
+      header: 'Autenticación',
+      width: '80%',
+      height:'80%',
+      baseZIndex: 10000,
     });
+    this.ref.onClose.subscribe({
+      next: (updateTable) => {},
+    });
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/auth/record']);
+  }
+
+  isValidField(formControlName: any) {
+    return (
+      this.formLogin.controls[formControlName].invalid &&
+      this.formLogin.controls[formControlName].touched
+    );
+  }
+  errorMessageForm(formControl: string) {
+    // válida que el formulario, de lo contrarió muestra error
+    return errorMessage(formControl, this.formLogin);
   }
 }
