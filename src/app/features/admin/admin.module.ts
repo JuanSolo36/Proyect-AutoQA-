@@ -14,7 +14,6 @@ import { LoadingModule } from '../../components/loading/loading.module';
 import { FormatDatePipe } from '../../core/helpers/FormatDatePipe';
 import { FormatsPipeModule } from '../../core/helpers/FormatsPipe.module';
 import { AdminComponent } from './admin.component';
-import { ChangePasswordModule } from '../change-password/change-password.module';
 import { TableComponent } from '../../components/table/table.component';
 import { QuotationsComponent } from './quotations/quotations.component';
 import { StatuRequisitionsComponent } from './statuRequisitions/statuRequisitions.component';
@@ -53,7 +52,6 @@ import { FormCustomerComponent } from './clients/form/form-customer/form-custome
     PrimengModule,
     LoadingModule,
     FormatsPipeModule,
-    ChangePasswordModule,
     // BrowserAnimationsModule
   ],
 })

@@ -5,7 +5,7 @@ import { SecurityService } from '../../core/services/security-service/security.s
 import { Router } from '@angular/router';
 import { MenuProductsService } from '../../core/services/menu-products/menu-products.service';
 
-
+ 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -13,7 +13,7 @@ import { MenuProductsService } from '../../core/services/menu-products/menu-prod
 })
 export class AdminComponent implements OnInit {
 
-  
+
   select:number = 0
   items: MenuItem[] | undefined;
   options: any = [
@@ -68,8 +68,8 @@ export class AdminComponent implements OnInit {
         }
       }
     ];
-    
-    
+
+
 
   }
   sidebarAction() {
@@ -95,7 +95,7 @@ export class AdminComponent implements OnInit {
   selectOption(index: number) {
     this.sidebar = false
     this.select = index;
-    
+
     if(index == 0){
       this.router.navigate(['/administrator/users']);
     }

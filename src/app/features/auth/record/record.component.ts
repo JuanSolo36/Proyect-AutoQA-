@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem,MessageService  } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 import { AuthenticationService } from '../../../core/services/authentication/authentication.service';
 import { SecurityService } from '../../../core/services/security-service/security.service';
@@ -32,7 +32,8 @@ export class RecordComponent implements OnInit {
     private authService: AuthenticationService,
     private securityService: SecurityService,
     private fb: FormBuilder,
-    public dialogService: DialogService
+    public dialogService: DialogService,
+    private location: Location
   ) {
     this.formLogin = this.fb.group({
       email: [
@@ -56,7 +57,11 @@ export class RecordComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+  }
+
+  goBack(): void {
+    this.location.back();  // Navega a la página anterior
   }
 
   onLogin() {
