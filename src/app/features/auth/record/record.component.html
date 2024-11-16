@@ -1,0 +1,72 @@
+<div class="block-content">
+  <div class="ng-star-inserted">
+    <div class="flex" style="height: 130vh;">
+      <div class="hidden md:flex align-items-center justify-content-center"
+          style="background-image: url('assets/drawel.png'); background-size: contain; width: 700px;">
+        <div style="color: white; font-weight: bold; text-transform: uppercase; font-family: 'Arial', sans-serif; margin: 80px 0 0 0; text-align: center; position: relative;">
+        </div>
+      </div>
+      <div class="surface-section p-7 md:p-1 flex w-full align-content-center justify-content-center flex-wrap">
+        <div class="mb-5 w-20rem">
+          <div class="surface-section p-7 md:p-1 flex w-full align-content-center justify-content-center flex-wrap" style=" margin-top: 100px;">
+            <img src="assets/fondo.png" alt="Logo de la empresa" style="width: 250px; height: auto;">
+            <div class="text-900 text-2xl font-medium mb-3" >
+              <b>Registro</b>
+            </div>
+          </div>
+          <div>
+            <form [formGroup]="formLogin">
+              <div class="mb-3" >
+                <label  class="block text-900 font-medium mb-2">
+                  <b>Nombre</b>
+                </label>
+                <input type="text" placeholder="Ingrese nombre de usuario" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small ></small>
+              </div>
+              <div class="mb-3" >
+                <label for="email2" class="block text-900 font-medium mb-2">
+                  <b>Correo electrónico</b>
+                </label>
+                <input formControlName="email" type="text" placeholder="Ingrese correo electrónico" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('email')" class="p-error">{{ errorMessageForm('email') }}</small>
+              </div>
+              <div class="mb-3" >
+                <label for="email2" class="block text-900 font-medium mb-2">
+                  <b>Confirmar correo electrónico</b>
+                </label>
+                <input formControlName="email" type="text" placeholder="Ingrese correo electrónico" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('email')" class="p-error">{{ errorMessageForm('email') }}</small>
+              </div>
+              <div class="mb-3" >
+                <label for="password2" class="block text-900 font-medium mb-2">
+                  <b>Contraseña</b>
+                </label>
+                <input formControlName="password" type="password" placeholder="**********" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('password')" class="p-error">{{ errorMessageForm('password') }}</small>
+              </div>
+              <div class="mb-3" >
+                <label for="password2" class="block text-900 font-medium mb-2">
+                  <b>Confirmar Contraseña</b>
+                </label>
+                <input formControlName="password" type="password" placeholder="**********" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('password')" class="p-error">{{ errorMessageForm('password') }}</small>
+              </div>
+              <div class="mb-3" >
+                <label for="password2" class="block text-900 font-medium mb-2">
+                  <b>Token de jira</b>
+                </label>
+                <input formControlName="password" type="password" placeholder="Digita el token de usuario" pinputtext="" class="p-inputtext p-component p-element w-full p-3" />
+                <small *ngIf="isValidField('password')" class="p-error">{{ errorMessageForm('password') }}</small>
+              </div>
+            </form>
+            <div class="flex justify-content-center">
+              <button (click)="onLogin()" [disabled]="formLogin.invalid" class="p-element p-ripple p-3 p-button p-component mb-4" [ngStyle]="{backgroundColor:'#E11C24'}" style="width: 200px; border-radius: 10px;">
+                <span class="p-button-label"><b>Registrate</b></span>
+                <span class="p-ink"></span>
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

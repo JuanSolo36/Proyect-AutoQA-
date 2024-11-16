@@ -1,0 +1,132 @@
+<ng-container>
+  <div class="card">
+    <form
+      [formGroup]="formCustomer"
+      [autocomplete]="false"
+      (ngSubmit)="onSave()"
+    >
+      <div class="formgrid grid">
+        <div class="col-12 mb-4">
+          Datos del cliente
+          <hr />
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label>Nombre del cliente</label>
+          <input
+            ng-trim="false"
+            formControlName="customerName"
+            type="text"
+            pInputText
+            [ngClass]="
+              isValidField('customerName') ? 'ng-dirty ng-invalid' : ''
+            "
+          />
+          <small *ngIf="isValidField('customerName')" class="p-error">{{
+            errorMessageForm('customerName')
+          }}</small>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label>NIT</label>
+          <input
+            type="text"
+            formControlName="nitNumber"
+            [ngClass]="isValidField('nitNumber') ? 'ng-dirty ng-invalid' : ''"
+            pInputText
+          />
+          <small *ngIf="isValidField('nitNumber')" class="p-error">{{
+            errorMessageForm('nitNumber')
+          }}</small>
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label>Dirección</label>
+          <input
+            type="text"
+            formControlName="address"
+            class="focus:border-primary w-full"
+            [ngClass]="isValidField('address') ? 'ng-dirty ng-invalid' : ''"
+            pInputText
+          />
+          <small *ngIf="isValidField('address')" class="p-error">{{
+            errorMessageForm('address')
+          }}</small>
+        </div>
+
+        <div class="col-12 mb-4">
+          Datos de responsable
+          <hr />
+        </div>
+        <div class="field col-12 md:col-6">
+          <label>Nombre(s)</label>
+          <input
+            formControlName="name"
+            type="text"
+            pInputText
+            [ngClass]="isValidField('name') ? 'ng-dirty ng-invalid' : ''"
+          />
+          <small *ngIf="isValidField('name')" class="p-error">{{
+            errorMessageForm('name')
+          }}</small>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label>Correo electrónico</label>
+          <input
+            type="email"
+            formControlName="email"
+            [ngClass]="isValidField('email') ? 'ng-dirty ng-invalid' : ''"
+            pInputText
+          />
+          <small *ngIf="isValidField('email')" class="p-error">{{
+            errorMessageForm('email')
+          }}</small>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label>Número de teléfono</label>
+          <input
+            type="text"
+            formControlName="phoneNumber"
+            [ngClass]="isValidField('phoneNumber') ? 'ng-dirty ng-invalid' : ''"
+            pInputText
+          />
+          <small *ngIf="isValidField('phoneNumber')" class="p-error">{{
+            errorMessageForm('phoneNumber')
+          }}</small>
+        </div>
+
+        <!-- Mostrar contraseña solo si no es modo de edición -->
+        <div class="field col-12 md:col-6" *ngIf="!isEditMode">
+          <label>Contraseña</label>
+          <p-password
+            formControlName="password"
+            [toggleMask]="true"
+          ></p-password>
+          <small *ngIf="isValidField('password')" class="p-error">{{
+            errorMessageForm('password')
+          }}</small>
+        </div>
+
+      </div>
+    </form>
+  </div>
+  <div class="p-dialog-footer">
+    <p-button
+      label="Guardar"
+      [disabled]="formCustomer.invalid"
+      icon="pi pi-save"
+      (click)="onSave()"
+      iconPos="left"
+    ></p-button>
+    <button
+      pButton
+      icon="pi pi-ban"
+      iconPos="left"
+      (click)="ref.close()"
+      type="button"
+      label="Cancelar"
+      class="p-button-danger"
+    ></button>
+  </div>
+  <app-loading [display]="isLoading"></app-loading>
+</ng-container>

@@ -1,4 +1,70 @@
-*{
-  margin:0;
-  padding: 0;
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeicons/primeicons.css";
+@import "primeng/resources/primeng.css";
+body {
+  margin: 0;
+}
+
+
+
+.pac-container {
+  z-index: 20000 !important;
+}
+
+
+
+.p-inputtext,
+.p-dropdown {
+  width: 100% !important;
+  height: 38px !important;
+}
+.p-password {
+  height: 38px !important;
+  position: relative;
+  display: inline-flex;
+  width: 100% !important;
+}
+
+.p-fileupload-filename {
+  text-overflow: ellipsis;
+  height: 15px;
+  overflow: hidden;
+}
+
+.p-calendar {
+  position: relative;
+  display: block !important;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .p-toast {
+    transform: scale(0.8);
+    width: 70% !important;
+  }
+  .p-toast .p-toast-message .p-toast-message-content {
+    width: 100% !important;
+  }
+}
+
+.cdk-drag-preview {
+  z-index: 30000 !important;
+}
+app-table {
+  .p-dropdown-panel {
+    position: fixed;
+  }
+}
+
+.menu-passenger {
+  .p-menu {
+    top: 65% !important;
+  }
+}
+app-form-services {
+  .p-calendar .p-datepicker {
+    min-width: 100%;
+    scale: 0.51;
+  }
 }

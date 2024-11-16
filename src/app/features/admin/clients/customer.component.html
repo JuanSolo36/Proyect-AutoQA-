@@ -1,0 +1,16 @@
+<div class="flex-1 overflow-y-auto p-3 h-full">
+  <app-table
+    label="Clientes"
+    [columns]="cols"
+    [values]="customerTable"
+    (eventDeleteRegister)="deleteElement($event)"
+    (eventEditRegister)="editElement($event)"
+    (eventAddRegister)="addElement()"
+  ></app-table>
+</div>
+<p-confirmDialog
+  acceptLabel="Si"
+  header="Atención"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+<p-toast></p-toast>
